@@ -1,0 +1,158 @@
+{
+  "sessionTokens": [
+    "-tK98TNwSypCiQuoyN2lpnavQgdE_59XcRoCrSZcSo3g7QmzrYsuk_aZUv0J_95_"
+  ],
+  "servers": {
+    "01JDKAFHS1W2BTPSS9YDB6WNEP": {
+      "name": "goons",
+      "messages": [
+        ".j4"
+      ],
+      "useTicketNumber": false,
+      "categoryNamePattern": "ticket-2",
+      "unclaimReply": "",
+      "raffleReply": "",
+      "aggressiveMode": false,
+      "triggerClaim": "if you'd like to claim it use the",
+      "triggerUnclaim": "unclaimed this ticket",
+      "triggerReopened": "and re-opened it to you",
+      "triggerRaffle": "has been claimed"
+    },
+    "01JDKH7HVTBZ2SDTYMTESVDEZA": {
+      "name": "GE",
+      "messages": [
+        "/claim",
+        ".join"
+      ],
+      "useTicketNumber": false,
+      "categoryNamePattern": "ticket",
+      "unclaimReply": "",
+      "raffleReply": "",
+      "aggressiveMode": false,
+      "triggerClaim": "if you'd like to claim it use the",
+      "triggerUnclaim": "unclaimed this ticket",
+      "triggerReopened": "and re-opened it to you",
+      "triggerRaffle": "has been claimed"
+    },
+    "01JDKH82R0RHG2VF9YDWKEFHC5": {
+      "name": "CE",
+      "messages": [],
+      "useTicketNumber": false,
+      "categoryNamePattern": "ticket",
+      "unclaimReply": "",
+      "raffleReply": "",
+      "aggressiveMode": false,
+      "triggerClaim": "if you'd like to claim it use the",
+      "triggerUnclaim": "unclaimed this ticket",
+      "triggerReopened": "and re-opened it to you",
+      "triggerRaffle": "has been claimed"
+    },
+    "01JDKJ2C7GRNTP9KCQZJWWQ6S0": {
+      "name": "foodie",
+      "messages": [
+        "/claim"
+      ],
+      "useTicketNumber": false,
+      "categoryNamePattern": "ticket",
+      "unclaimReply": "",
+      "raffleReply": "",
+      "aggressiveMode": false,
+      "triggerClaim": "if you'd like to claim it use the",
+      "triggerUnclaim": "unclaimed this ticket",
+      "triggerReopened": "and re-opened it to you",
+      "triggerRaffle": "has been claimed"
+    },
+    "01JDKZ9Y7AEPQQDA7BVQA10DZ7": {
+      "name": "border",
+      "messages": [],
+      "useTicketNumber": false,
+      "categoryNamePattern": "ticket",
+      "unclaimReply": "",
+      "raffleReply": "",
+      "aggressiveMode": false,
+      "triggerClaim": "if you'd like to claim it use the",
+      "triggerUnclaim": "unclaimed this ticket",
+      "triggerReopened": "and re-opened it to you",
+      "triggerRaffle": "has been claimed"
+    },
+    "01JDPY161J6H6B1KBV74QWKCDM": {
+      "name": "blackjack",
+      "messages": [
+        ".j4"
+      ],
+      "useTicketNumber": false,
+      "categoryNamePattern": "ticket",
+      "unclaimReply": "",
+      "raffleReply": "",
+      "aggressiveMode": false,
+      "triggerClaim": "if you'd like to claim it use the",
+      "triggerUnclaim": "unclaimed this ticket",
+      "triggerReopened": "and re-opened it to you",
+      "triggerRaffle": "has been claimed"
+    },
+    "01JZ61Q8WN45VQ0ZMCM59T10ZX": {
+      "name": "eo",
+      "messages": [
+        ".j4"
+      ],
+      "useTicketNumber": false,
+      "categoryNamePattern": "ticket",
+      "unclaimReply": "",
+      "raffleReply": "",
+      "aggressiveMode": false,
+      "triggerClaim": "if you'd like to claim it use the",
+      "triggerUnclaim": "unclaimed this ticket",
+      "triggerReopened": "and re-opened it to you",
+      "triggerRaffle": "has been claimed"
+    },
+    "01K7A7CNSMC5XPTJ7J36H9XKGR": {
+      "name": "foodocity",
+      "messages": [],
+      "useTicketNumber": true,
+      "categoryNamePattern": "ticket",
+      "unclaimReply": "",
+      "raffleReply": "",
+      "aggressiveMode": false,
+      "triggerClaim": "if you'd like to claim it use the",
+      "triggerUnclaim": "unclaimed this ticket",
+      "triggerReopened": "and re-opened it to you",
+      "triggerRaffle": "has been claimed"
+    },
+    "01K7A7TBZ4SJKNXX47H9MHF6V7": {
+      "name": "tgc",
+      "messages": [],
+      "useTicketNumber": true,
+      "categoryNamePattern": "doordash",
+      "unclaimReply": "",
+      "raffleReply": "",
+      "aggressiveMode": false,
+      "triggerClaim": "if you'd like to claim it use the",
+      "triggerUnclaim": "unclaimed this ticket",
+      "triggerReopened": "and re-opened it to you",
+      "triggerRaffle": "has been claimed"
+    },
+    "01KD6B9A08JM600VSDG4SHVFRV": {
+      "name": "Treatz",
+      "messages": [
+        "/claim"
+      ],
+      "useTicketNumber": false,
+      "categoryNamePattern": "ticket",
+      "unclaimReply": "",
+      "raffleReply": ".j4",
+      "aggressiveMode": false,
+      "triggerClaim": "if you'd like to claim it use the",
+      "triggerUnclaim": "unclaimed this ticket",
+      "triggerReopened": "and re-opened it to you",
+      "triggerRaffle": "has been claimed"
+    }
+  },
+  "port": 8080,
+  "autoStart": false,
+  "defaultTriggers": {
+    "claim": "if you'd like to claim it use the",
+    "unclaim": "unclaimed this ticket",
+    "reopened": "and re-opened it to you",
+    "raffle": "has been claimed"
+  }
+}

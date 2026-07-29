@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sentry Dashboard</title>
+<link rel="icon" href="/static/icon.ico" type="image/x-icon">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div id="boot-overlay">
+    <div class="boot-content">
+      <div class="boot-banner" data-delay="100">
+        <pre class="banner-art">╔══════════════════════════════╗
+║       S E N T R Y          ║
+║   command &amp; control v2.0   ║
+╚══════════════════════════════╝</pre>
+      </div>
+      <div class="boot-line" data-delay="800"><span class="boot-prompt">root@sentry:~$</span> <span class="boot-text">initialize kernel...</span></div>
+      <div class="boot-line" data-delay="1100"><span class="boot-prompt">root@sentry:~$</span> <span class="boot-text">load modules...</span></div>
+      <div class="boot-line" data-delay="1400"><span class="boot-prompt">root@sentry:~$</span> <span class="boot-text">establish worker channel...</span></div>
+      <div class="boot-line" data-delay="1700"><span class="boot-prompt">root@sentry:~$</span> <span class="boot-text">authenticate token...</span></div>
+      <div class="boot-line" data-delay="2000"><span class="boot-prompt">root@sentry:~$</span> <span class="boot-text">sync server config...</span></div>
+      <div class="boot-line" data-delay="2300"><span class="boot-prompt">root@sentry:~$</span> <span id="bootCount" class="boot-text">0 servers loaded.</span></div>
+      <div class="boot-line boot-glitch-line" data-delay="2800"><span class="boot-prompt">root@sentry:~$</span> <span class="glitch-text" data-text="SENTRY v2.0 READY.">SENTRY v2.0 READY.</span></div>
+      <div class="boot-line boot-cursor-line" data-delay="3400"><span class="boot-prompt">root@sentry:~$</span><span class="boot-cursor">_</span></div>
+    </div>
+  </div>
+
+<div id="app">
+  <header>
+    <div class="header-left">
+      <span class="logo"><span class="glitch-text" data-text="SENTRY">SENTRY</span></span>
+      <span class="version">v2.0</span>
+    </div>
+    <div class="header-center" id="statusBar">
+      <span class="status-dot disconnected" id="globalStatus"></span>
+      <span id="statusText">IDLE</span>
+    </div>
+    <div class="header-right">
+      <span class="theme-selector">
+        <button class="theme-dot theme-dot-g active" data-theme="green" title="Green Phosphor" onclick="setTheme('green')"></button>
+        <button class="theme-dot theme-dot-a" data-theme="amber" title="Amber Terminal" onclick="setTheme('amber')"></button>
+        <button class="theme-dot theme-dot-c" data-theme="cyan" title="Cyan Hacker" onclick="setTheme('cyan')"></button>
+        <button class="theme-dot theme-dot-b" data-theme="ibm" title="IBM 3270 Blue" onclick="setTheme('ibm')"></button>
+      </span>
+      <button class="btn btn-start" id="btnStartAll" onclick="startAll()">START</button>
+      <button class="btn btn-stop" id="btnStopAll" onclick="stopAll()" disabled>STOP</button>
+      <button class="btn btn-restart" id="btnRestartAll" onclick="restartAll()" disabled>RESTART</button>
+    </div>
+  </header>
+
+  <div class="ticker-bar" id="tickerBar">
+    <span class="ticker-prompt">></span>
+    <span class="ticker-text" id="tickerText">system idle</span>
+    <span class="ticker-cursor">_</span>
+  </div>
+
+  <div class="main">
+    <aside class="sidebar">
+      <canvas id="matrixCanvas"></canvas>
+      <div class="sidebar-content">
+        <nav class="tabs">
+          <button class="tab active" data-tab="dashboard" onclick="switchTab('dashboard')">Dashboard</button>
+          <button class="tab" data-tab="logs" onclick="switchTab('logs')">Live Log</button>
+          <button class="tab" data-tab="servers" onclick="switchTab('servers')">Servers</button>
+          <button class="tab" data-tab="settings" onclick="switchTab('settings')">Settings</button>
+        </nav>
+        <div class="traffic-bars">
+          <div class="traffic-row">
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+          </div>
+        </div>
+        <div class="sidebar-stats">
+          <div class="stat"><span class="stat-label">claims</span><span class="stat-value" id="statClaims">0</span></div>
+          <div class="stat"><span class="stat-label">servers</span><span class="stat-value" id="statServers">0</span></div>
+          <div class="stat"><span class="stat-label">channels</span><span class="stat-value" id="statChannels">0</span></div>
+        </div>
+      </div>
+    </aside>
+
+    <section class="content">
+      <div class="tab-content active" id="tab-dashboard">
+        <div class="bots-grid" id="botsGrid">
+          <div class="bot-card empty">
+            <div class="bot-header">// NO BOTS ACTIVE</div>
+            <div class="bot-body">$ bootstrap --start-all</div>
+          </div>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-card-value" id="dashClaims">0</div>
+            <div class="stat-card-label">claims</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-value" id="dashServers">0</div>
+            <div class="stat-card-label">servers</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-value" id="dashChannels">0</div>
+            <div class="stat-card-label">channels</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-value" id="dashUptime">--:--:--</div>
+            <div class="stat-card-label">uptime</div>
+          </div>
+          <div id="toastContainer"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-logs">
+        <div class="log-controls">
+          <button class="btn btn-small" onclick="togglePause()" id="btnPause">PAUSE</button>
+          <button class="btn btn-small" onclick="clearLogs()">CLEAR</button>
+          <label class="log-filter">
+            <input type="text" id="logFilter" placeholder="grep filter..." oninput="applyLogFilter()">
+          </label>
+        </div>
+        <div class="log-container" id="logContainer"></div>
+      </div>
+
+      <div class="tab-content" id="tab-servers">
+        <div class="server-toolbar">
+          <button class="btn btn-primary" onclick="showAddServer()">+ ADD SERVER</button>
+          <span class="hint">// configure monitored endpoints</span>
+        </div>
+        <div class="server-table-container">
+          <table class="server-table" id="serverTable">
+            <thead>
+              <tr>
+                <th>name</th>
+                <th>server id</th>
+                <th>category</th>
+                <th>messages</th>
+                <th>unclaim</th>
+                <th>raffle</th>
+                <th>mode</th>
+                <th>actions</th>
+              </tr>
+            </thead>
+            <tbody id="serverBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-settings">
+        <div class="settings-section">
+          <h3>bot tokens</h3>
+          <p class="hint">session tokens — one per line</p>
+          <textarea id="tokensInput" rows="3" class="input"></textarea>
+          <button class="btn btn-primary" onclick="saveTokens()">SAVE TOKENS</button>
+          <span class="save-msg" id="tokensSaved"></span>
+        </div>
+        <div class="settings-section">
+          <h3>default triggers</h3>
+          <p class="hint">fallback phrases when server has no custom triggers</p>
+          <div class="form-group">
+            <label>claim trigger:</label>
+            <input type="text" id="defClaim" class="input">
+          </div>
+          <div class="form-group">
+            <label>unclaim trigger:</label>
+            <input type="text" id="defUnclaim" class="input">
+          </div>
+          <div class="form-group">
+            <label>reopened trigger:</label>
+            <input type="text" id="defReopened" class="input">
+          </div>
+          <div class="form-group">
+            <label>raffle trigger:</label>
+            <input type="text" id="defRaffle" class="input">
+          </div>
+          <button class="btn btn-primary" onclick="saveDefaults()">SAVE DEFAULTS</button>
+          <span class="save-msg" id="defaultsSaved"></span>
+        </div>
+        <div class="settings-section">
+          <h3>port</h3>
+          <p class="hint">dashboard port — restart required</p>
+          <input type="number" id="portInput" class="input" style="width:100px">
+          <button class="btn btn-primary" onclick="savePort()">SAVE PORT</button>
+          <span class="save-msg" id="portSaved"></span>
+        </div>
+        <div class="settings-section">
+          <h3>audio</h3>
+          <p class="hint">optional sound effects for claims and alerts</p>
+          <label class="sound-toggle">
+            <input type="checkbox" id="soundEnabled" onchange="toggleSound()"> blips &amp; buzzes
+          </label>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="eye-widget" id="eyeWidget">
+    <canvas id="eyeCanvas" width="200" height="200"></canvas>
+    <div class="eye-label">// optic::eye</div>
+  </div>
+
+  <div class="console-widget" id="consoleWidget">
+    <div class="console-header">
+      <span class="console-title">terminal://sentry</span>
+      <button class="console-toggle" onclick="toggleConsole()">_</button>
+    </div>
+    <div class="console-body" id="consoleBody">
+      <div class="console-line"><span class="console-prompt">root@sentry:~$</span> <span>monitoring 47 channels...</span></div>
+      <div class="console-line"><span class="console-prompt">root@sentry:~$</span> <span>all systems nominal</span></div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="serverModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modalTitle">> add server</h3>
+        <button class="btn-close" onclick="closeModal()">x</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="editServerId">
+        <div class="form-group">
+          <label>server id:</label>
+          <input type="text" id="srvId" class="input" placeholder="server id">
+        </div>
+        <div class="form-group">
+          <label>name:</label>
+          <input type="text" id="srvName" class="input" placeholder="friendly name">
+        </div>
+        <div class="form-group">
+          <label>category pattern:</label>
+          <input type="text" id="srvCat" class="input" placeholder="e.g. ticket">
+        </div>
+        <div class="form-group">
+          <label>claim messages (one per line):</label>
+          <textarea id="srvMsgs" class="input" rows="2" placeholder="/claim"></textarea>
+        </div>
+        <div class="form-group">
+          <label>unclaim reply:</label>
+          <input type="text" id="srvUnclaim" class="input" placeholder="leave empty for no reply">
+        </div>
+        <div class="form-group">
+          <label>raffle reply:</label>
+          <input type="text" id="srvRaffle" class="input" placeholder="leave empty for no reply">
+        </div>
+        <div class="form-row">
+          <label class="checkbox-label">
+            <input type="checkbox" id="srvTicketNum"> use ticket number
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="srvAggro"> aggressive mode
+          </label>
+        </div>
+        <details class="advanced-triggers">
+          <summary>custom trigger phrases // optional</summary>
+          <div class="form-group">
+            <label>claim trigger:</label>
+            <input type="text" id="srvTrigClaim" class="input" placeholder="default">
+          </div>
+          <div class="form-group">
+            <label>unclaim trigger:</label>
+            <input type="text" id="srvTrigUnclaim" class="input" placeholder="default">
+          </div>
+          <div class="form-group">
+            <label>reopened trigger:</label>
+            <input type="text" id="srvTrigReopened" class="input" placeholder="default">
+          </div>
+          <div class="form-group">
+            <label>raffle trigger:</label>
+            <input type="text" id="srvTrigRaffle" class="input" placeholder="default">
+          </div>
+        </details>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" onclick="closeModal()">CANCEL</button>
+        <button class="btn btn-primary" onclick="saveServer()">SAVE</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="commandPalette">
+  <div class="cmd-modal">
+    <div class="cmd-input-wrap">
+      <span class="cmd-prompt">root@sentry:~$</span>
+      <input type="text" id="cmdInput" placeholder="type a command..." autocomplete="off" spellcheck="false">
+    </div>
+    <div class="cmd-results" id="cmdResults"></div>
+  </div>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
