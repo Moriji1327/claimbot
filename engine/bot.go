@@ -70,7 +70,7 @@ func (b *Bot) replyWorker() {
 			if !ok {
 				return
 			}
-			err := sendReply(job.channelID, job.content, b.token, b.httpClient)
+			err := sendReply(job.channelID, job.content, b.token, b.engine.config.CfCookie, b.httpClient)
 			if err != nil {
 				b.log.Warnf(b.id, "Failed: %s - %v", job.content, err)
 			} else {

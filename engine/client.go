@@ -36,7 +36,7 @@ func newSharedTransport() *http.Transport {
 	}
 }
 
-func sendReply(channelID, content, token string, client *http.Client) error {
+func sendReply(channelID, content, token, cfCookie string, client *http.Client) error {
 	url := fmt.Sprintf("https://workers.api.onech.at/channels/%s/messages", channelID)
 	body := []byte(fmt.Sprintf(`{"content":"%s"}`, content))
 
@@ -44,6 +44,9 @@ func sendReply(channelID, content, token string, client *http.Client) error {
 
 	req.Header.Set("x-session-token", token)
 	req.Header.Set("Content-Type", "application/json")
+	if cfCookie != "" {
+		req.Header.Set("Cookie", cfCookie)
+	}
 
 	res, err := client.Do(req)
 	if err != nil {
