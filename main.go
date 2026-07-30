@@ -11,6 +11,7 @@ import (
 	"os/signal"
 	"path/filepath"
 	"runtime"
+	"strconv"
 	"strings"
 	"syscall"
 
@@ -51,7 +52,8 @@ func main() {
 	}
 
 	if port := os.Getenv("PORT"); port != "" {
-		if p, err := fmt.Sscanf(port, "%d", &cfg.Port); err == nil && p == 1 {
+		if p, err := strconv.Atoi(port); err == nil {
+			cfg.Port = p
 			log.Printf("Using PORT from environment: %d", cfg.Port)
 		}
 	}
