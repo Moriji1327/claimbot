@@ -188,6 +188,7 @@ func handleConfig(w http.ResponseWriter, r *http.Request) {
 			"port":            cfg.Port,
 			"autoStart":       cfg.AutoStart,
 			"defaultTriggers": cfg.DefaultTriggers,
+			"cfCookie":        cfg.CfCookie,
 		}
 		writeJSON(w, resp)
 
@@ -218,6 +219,8 @@ func handleConfig(w http.ResponseWriter, r *http.Request) {
 				if v, ok := defMap["reopened"]; ok { cfg.DefaultTriggers.Reopened, _ = v.(string) }
 				if v, ok := defMap["raffle"]; ok { cfg.DefaultTriggers.Raffle, _ = v.(string) }
 			}
+		} else if cookie, ok := req["_cfCookie"]; ok {
+			cfg.CfCookie, _ = cookie.(string)
 		} else if port, ok := req["_port"]; ok {
 			if p, ok := port.(float64); ok {
 				cfg.Port = int(p)

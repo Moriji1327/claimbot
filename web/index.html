@@ -187,6 +187,13 @@
           <span class="save-msg" id="portSaved"></span>
         </div>
         <div class="settings-section">
+          <h3>cloudflare bypass</h3>
+          <p class="hint">cf_clearance cookie — paste from browser dev tools</p>
+          <input type="text" id="cfCookieInput" class="input" placeholder="cf_clearance=...; __cf_bm=...">
+          <button class="btn btn-primary" onclick="saveCfCookie()">SAVE COOKIE</button>
+          <span class="save-msg" id="cfCookieSaved"></span>
+        </div>
+        <div class="settings-section">
           <h3>audio</h3>
           <p class="hint">optional sound effects for claims and alerts</p>
           <label class="sound-toggle">

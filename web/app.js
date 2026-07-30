@@ -519,6 +519,17 @@ function renderSettings() {
   document.getElementById('defReopened').value = config.defaultTriggers?.reopened || '';
   document.getElementById('defRaffle').value = config.defaultTriggers?.raffle || '';
   document.getElementById('portInput').value = config.port || 8080;
+  document.getElementById('cfCookieInput').value = config.cfCookie || '';
+}
+
+async function saveCfCookie() {
+  const val = document.getElementById('cfCookieInput').value.trim();
+  await api('POST', '/config', { _cfCookie: val });
+  const msg = document.getElementById('cfCookieSaved');
+  msg.textContent = 'saved. restart bots to apply.';
+  addConsoleLine('config: cf cookie updated', 'info');
+  setTimeout(() => msg.textContent = '', 3000);
+  await loadConfig();
 }
 
 // ======================== BOT CONTROLS ========================

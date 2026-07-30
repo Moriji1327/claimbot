@@ -75,6 +75,7 @@ type Config struct {
 	Port            int                     `json:"port"`
 	AutoStart       bool                    `json:"autoStart"`
 	DefaultTriggers DefaultTriggers         `json:"defaultTriggers"`
+	CfCookie        string                  `json:"cfCookie"`
 }
 
 type DefaultTriggers struct {

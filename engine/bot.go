@@ -95,6 +95,9 @@ func (b *Bot) run() {
 		headers.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
 		headers.Set("Accept-Language", "en-US,en;q=0.9")
 		headers.Set("x-session-token", b.token)
+		if cookie := b.engine.config.CfCookie; cookie != "" {
+			headers.Set("Cookie", cookie)
+		}
 
 		conn, resp, err := websocket.DefaultDialer.Dial(wsURL, headers)
 		if err != nil {
