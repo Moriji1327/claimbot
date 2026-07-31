@@ -43,6 +43,11 @@ func main() {
 	configPath = filepath.Join(dir, configFileName)
 	claimedPath = filepath.Join(dir, claimedFileName)
 
+	if dataDir := os.Getenv("DATA_DIR"); dataDir != "" {
+		claimedPath = filepath.Join(dataDir, claimedFileName)
+		log.Printf("Using DATA_DIR for claimed channels: %s", claimedPath)
+	}
+
 	logEmitter = engine.NewLogEmitter(1024)
 	logEmitter.Start()
 
