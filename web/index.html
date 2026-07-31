@@ -141,6 +141,7 @@
                 <th>unclaim</th>
                 <th>raffle</th>
                 <th>mode</th>
+                <th>status</th>
                 <th>actions</th>
               </tr>
             </thead>
@@ -255,6 +256,15 @@
         <div class="form-row">
           <label class="checkbox-label">
             <input type="checkbox" id="srvTicketNum"> use ticket number
+          </label>
+          <label class="checkbox-label" style="margin-left:8px">
+            <input type="text" id="srvTicketPrefix" class="input" placeholder="prefix" style="width:90px;font-size:11px">
+          </label>
+          <span style="font-size:11px;color:var(--dim)">ticket prefix</span>
+        </div>
+        <div class="form-row">
+          <label class="checkbox-label">
+            <input type="checkbox" id="srvDisabled"> disable server
           </label>
           <label class="checkbox-label">
             <input type="checkbox" id="srvAggro"> aggressive mode

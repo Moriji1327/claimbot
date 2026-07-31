@@ -9,10 +9,12 @@ type ServerConfig struct {
 	Name                string   `json:"name"`
 	Messages            []string `json:"messages"`
 	UseTicketNumber     bool     `json:"useTicketNumber"`
+	TicketPrefix        string   `json:"ticketPrefix,omitempty"`
 	CategoryNamePattern string   `json:"categoryNamePattern"`
 	UnclaimReply        string   `json:"unclaimReply"`
 	RaffleReply         string   `json:"raffleReply"`
 	AggressiveMode      bool     `json:"aggressiveMode"`
+	Disabled            bool     `json:"disabled,omitempty"`
 	TriggerClaim        string   `json:"triggerClaim"`
 	TriggerUnclaim      string   `json:"triggerUnclaim"`
 	TriggerReopened     string   `json:"triggerReopened"`

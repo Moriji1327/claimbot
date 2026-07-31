@@ -2,3 +2,4 @@ sentry.exe
 sentry
 sentry-linux
 *.exe
+*.exe~

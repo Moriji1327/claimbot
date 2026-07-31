@@ -928,6 +928,14 @@ header::after {
   border-left: 1px solid var(--primary);
 }
 
+.server-table .row-disabled td {
+  opacity: 0.4;
+}
+
+.server-table .row-disabled:hover td {
+  opacity: 0.5;
+}
+
 .server-table .server-name { color: var(--primary); }
 .server-table .server-id { font-size: 9px; color: var(--text-muted); }
 

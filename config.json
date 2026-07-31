@@ -29,6 +29,7 @@
       "unclaimReply": "",
       "raffleReply": "",
       "aggressiveMode": false,
+      "disabled": true,
       "triggerClaim": "if you'd like to claim it use the",
       "triggerUnclaim": "unclaimed this ticket",
       "triggerReopened": "and re-opened it to you",
@@ -36,12 +37,16 @@
     },
     "01JDKH82R0RHG2VF9YDWKEFHC5": {
       "name": "CE",
-      "messages": [],
+      "messages": [
+        "/claim",
+        ".join"
+      ],
       "useTicketNumber": false,
       "categoryNamePattern": "ticket",
       "unclaimReply": "",
       "raffleReply": "",
       "aggressiveMode": false,
+      "disabled": true,
       "triggerClaim": "if you'd like to claim it use the",
       "triggerUnclaim": "unclaimed this ticket",
       "triggerReopened": "and re-opened it to you",
@@ -55,7 +60,7 @@
       "useTicketNumber": false,
       "categoryNamePattern": "ticket",
       "unclaimReply": "",
-      "raffleReply": "",
+      "raffleReply": ".j4",
       "aggressiveMode": false,
       "triggerClaim": "if you'd like to claim it use the",
       "triggerUnclaim": "unclaimed this ticket",
@@ -64,12 +69,16 @@
     },
     "01JDKZ9Y7AEPQQDA7BVQA10DZ7": {
       "name": "border",
-      "messages": [],
+      "messages": [
+        "/claim",
+        ".join"
+      ],
       "useTicketNumber": false,
       "categoryNamePattern": "ticket",
       "unclaimReply": "",
       "raffleReply": "",
       "aggressiveMode": false,
+      "disabled": true,
       "triggerClaim": "if you'd like to claim it use the",
       "triggerUnclaim": "unclaimed this ticket",
       "triggerReopened": "and re-opened it to you",
@@ -109,6 +118,7 @@
       "name": "foodocity",
       "messages": [],
       "useTicketNumber": true,
+      "ticketPrefix": ".",
       "categoryNamePattern": "ticket",
       "unclaimReply": "",
       "raffleReply": "",
@@ -122,6 +132,7 @@
       "name": "tgc",
       "messages": [],
       "useTicketNumber": true,
+      "ticketPrefix": ".",
       "categoryNamePattern": "doordash",
       "unclaimReply": "",
       "raffleReply": "",
@@ -154,5 +165,6 @@
     "unclaim": "unclaimed this ticket",
     "reopened": "and re-opened it to you",
     "raffle": "has been claimed"
-  }
+  },
+  "cfCookie": ""
 }

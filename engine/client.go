@@ -44,6 +44,11 @@ func sendReply(channelID, content, token, cfCookie string, client *http.Client) 
 
 	req.Header.Set("x-session-token", token)
 	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Origin", "https://workers.onech.at")
+	req.Header.Set("Referer", "https://workers.onech.at/")
+	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+	req.Header.Set("Accept", "*/*")
+	req.Header.Set("Accept-Language", "en-US,en;q=0.9")
 	if cfCookie != "" {
 		req.Header.Set("Cookie", cfCookie)
 	}

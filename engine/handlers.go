@@ -24,6 +24,10 @@ func (b *Bot) handleMessage(raw []byte) {
 		return
 	}
 
+	if cfg.Disabled {
+		return
+	}
+
 	if !containsTrigger(evt.Content, cfg) {
 		return
 	}
@@ -62,7 +66,7 @@ func (b *Bot) handleMessage(raw []byte) {
 		if cfg.UseTicketNumber {
 			ticket := extractTicketNumber(info.Name)
 			if ticket != "" {
-				replies = []string{ticket}
+				replies = []string{cfg.TicketPrefix + ticket}
 			}
 		} else {
 			replies = cfg.Messages
@@ -187,7 +191,7 @@ func (b *Bot) handleEvent(evt map[string]interface{}) {
 		}
 
 		serverCfg, ok := b.engine.GetServerConfig(id)
-		if !ok || !serverCfg.AggressiveMode {
+		if !ok || !serverCfg.AggressiveMode || serverCfg.Disabled {
 			return
 		}
 
@@ -207,7 +211,7 @@ func (b *Bot) handleEvent(evt map[string]interface{}) {
 		if serverCfg.UseTicketNumber {
 			ticket := extractTicketNumber(name)
 			if ticket != "" {
-				replies = []string{ticket}
+				replies = []string{serverCfg.TicketPrefix + ticket}
 			}
 		} else {
 			replies = serverCfg.Messages

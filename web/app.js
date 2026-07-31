@@ -496,9 +496,12 @@ function renderServers() {
     const msgs = (srv.messages || []).join(', ') || '-';
     const unclaim = srv.unclaimReply || '-';
     const raffle = srv.raffleReply || '-';
+    const disabled = srv.disabled || false;
     const ticketBadge = srv.useTicketNumber ? '<span class="badge badge-yes">TICKET</span>' : '<span class="badge badge-no">MSG</span>';
     const aggroBadge = srv.aggressiveMode ? '<span class="badge badge-yes">AGGRO</span>' : '<span class="badge badge-no">NORM</span>';
-    return '<tr>'
+    const statusBadge = disabled ? '<span class="badge badge-no">DISABLED</span>' : '<span class="badge badge-yes">ACTIVE</span>';
+    const rowClass = disabled ? ' class="row-disabled"' : '';
+    return '<tr' + rowClass + '>'
       + '<td><span class="server-name">' + (srv.name || id) + '</span></td>'
       + '<td><span class="server-id">' + id + '</span></td>'
       + '<td>' + (srv.categoryNamePattern || '-') + '</td>'
@@ -506,6 +509,7 @@ function renderServers() {
       + '<td>' + unclaim + '</td>'
       + '<td>' + raffle + '</td>'
       + '<td>' + ticketBadge + ' ' + aggroBadge + '</td>'
+      + '<td>' + statusBadge + '</td>'
       + '<td><button class="btn btn-small" onclick="editServer(\'' + id + '\')">EDIT</button> <button class="btn btn-small btn-danger" onclick="deleteServer(\'' + id + '\')">DEL</button></td>'
       + '</tr>';
   }).join('');
@@ -860,6 +864,8 @@ async function showAddServer() {
   document.getElementById('srvUnclaim').value = '';
   document.getElementById('srvRaffle').value = '';
   document.getElementById('srvTicketNum').checked = false;
+  document.getElementById('srvTicketPrefix').value = '';
+  document.getElementById('srvDisabled').checked = false;
   document.getElementById('srvAggro').checked = false;
   document.getElementById('srvTrigClaim').value = '';
   document.getElementById('srvTrigUnclaim').value = '';
@@ -881,6 +887,8 @@ function editServer(id) {
   document.getElementById('srvUnclaim').value = srv.unclaimReply || '';
   document.getElementById('srvRaffle').value = srv.raffleReply || '';
   document.getElementById('srvTicketNum').checked = srv.useTicketNumber || false;
+  document.getElementById('srvTicketPrefix').value = srv.ticketPrefix || '';
+  document.getElementById('srvDisabled').checked = srv.disabled || false;
   document.getElementById('srvAggro').checked = srv.aggressiveMode || false;
   document.getElementById('srvTrigClaim').value = srv.triggerClaim || '';
   document.getElementById('srvTrigUnclaim').value = srv.triggerUnclaim || '';
@@ -902,7 +910,9 @@ function collectServerForm() {
     unclaimReply: document.getElementById('srvUnclaim').value.trim(),
     raffleReply: document.getElementById('srvRaffle').value.trim(),
     useTicketNumber: document.getElementById('srvTicketNum').checked,
+    ticketPrefix: document.getElementById('srvTicketPrefix').value.trim(),
     aggressiveMode: document.getElementById('srvAggro').checked,
+    disabled: document.getElementById('srvDisabled').checked,
     triggerClaim: document.getElementById('srvTrigClaim').value.trim(),
     triggerUnclaim: document.getElementById('srvTrigUnclaim').value.trim(),
     triggerReopened: document.getElementById('srvTrigReopened').value.trim(),
